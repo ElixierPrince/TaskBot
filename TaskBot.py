@@ -203,11 +203,6 @@ def schedule_check():
     schedule.every().day.at("16:30").do(lambda: asyncio.run_coroutine_threadsafe(progress_check(), loop))
     schedule.every().day.at("21:45").do(lambda: asyncio.run_coroutine_threadsafe(ask_tomorrow_tasks(), loop))
 
-    # לצורך בדיקות מהירות (אפשר למחוק כשעוברים לייצור)
-    schedule.every(1).minutes.do(lambda: asyncio.run_coroutine_threadsafe(send_morning_tasks(), loop))
-    schedule.every(2).minutes.do(lambda: asyncio.run_coroutine_threadsafe(ask_tomorrow_tasks(), loop))
-    schedule.every(3).minutes.do(lambda: asyncio.run_coroutine_threadsafe(progress_check(), loop))
-
     threading.Thread(target=run_scheduler, daemon=True).start()
 
 
