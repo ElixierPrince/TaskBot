@@ -74,7 +74,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         status_data[today] = {task: "פתוח" for task in tasks_today}
 
     # === בדיקת בקשת סיכום סטטוס משימות ===
-    summary_keywords = ["מה נשאר", "סטטוס", "מה עם", "מה יש לי", "מה הספקתי", "מה לא עשיתי"]
+summary_keywords = ["מה נשאר", "סטטוס", "מה עם", "מה יש לי", "מה הספקתי", "מה לא עשיתי", "מה המשימות שלי להיום", "מה המשימות שלי"]
 
     if any(kw in message for kw in summary_keywords):
         done = []
