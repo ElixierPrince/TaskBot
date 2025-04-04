@@ -135,10 +135,21 @@ async def ask_tomorrow_tasks():
     print("⌛ שליחת הודעת מחר בפעולה...")
     tomorrow = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
     try:
+        with open("tasks.json", "r", encoding="utf-8") as f:
+            task_data = json.load(f)
+    except FileNotFoundError:
+        task_data = {}
+
+    if task_data.get(tomorrow):
+        print("ℹ️ כבר קיימות משימות למחר – לא נשלח שוב.")
+        return
+
+    try:
         await app.bot.send_message(chat_id=USER_ID, text="📅 מה אתה רוצה להספיק מחר?")
         print("✅ הודעת מחר נשלחה.")
     except Exception as e:
         print(f"❌ שגיאה בשליחת הודעת מחר: {e}")
+
 
 
 # === Send Morning Tasks ===
